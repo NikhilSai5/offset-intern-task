@@ -24,8 +24,6 @@ const Navbar = () => {
   const navigationItems = [
     { name: "Dashboard", icon: Home, href: "/" },
     { name: "Retirements", icon: BarChart3, href: "/retirements" },
-    { name: "Projects", icon: FileText, href: "#" },
-    { name: "Reports", icon: BarChart3, href: "#" },
   ];
 
   const notifications = [
