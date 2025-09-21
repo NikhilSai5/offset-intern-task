@@ -1,6 +1,6 @@
 # Internship Questions
 
-1. How did you decide what to show on the main page vs details?
+##### 1. How did you decide what to show on the main page vs details?
 
 When I decide what to show on the main page versus the details page, I think about what the user needs right away and what can wait until they’re interested enough to click deeper.
 
@@ -8,7 +8,7 @@ When I decide what to show on the main page versus the details page, I think abo
 
 - On the details page, I put all the extra information — the stuff that’s still important but not something you need to see immediately. This is where you can go deeper, explore, compare, or interact more.
 
-2. What design choices did you make to keep it clean?
+##### 2. What design choices did you make to keep it clean?
 
    To keep the design clean, I focused on a few things:
 
@@ -26,7 +26,7 @@ When I decide what to show on the main page versus the details page, I think abo
 
   Basically, I tried to make it easy for users to find what they need without feeling overwhelmed.
 
-3. If the system had 10,000 credits, how would you keep the dashboard fast?
+##### 3. If the system had 10,000 credits, how would you keep the dashboard fast?
 
    If the system had 10,000 credits, I’d keep the dashboard fast by not trying to load everything at once.
 
