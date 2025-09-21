@@ -12,18 +12,20 @@ import {
   Settings,
   HelpCircle,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
     useState(false);
+  const [activeItem, setActiveItem] = useState("Dashboard"); // Add state for active item
 
   const navigationItems = [
-    { name: "Dashboard", icon: Home, href: "#", active: true },
-    { name: "Credits", icon: BarChart3, href: "#", active: false },
-    { name: "Projects", icon: FileText, href: "#", active: false },
-    { name: "Reports", icon: BarChart3, href: "#", active: false },
+    { name: "Dashboard", icon: Home, href: "/" },
+    { name: "Retirements", icon: BarChart3, href: "/retirements" },
+    { name: "Projects", icon: FileText, href: "#" },
+    { name: "Reports", icon: BarChart3, href: "#" },
   ];
 
   const notifications = [
@@ -64,6 +66,11 @@ const Navbar = () => {
     setIsProfileDropdownOpen(false);
   };
 
+  const handleNavItemClick = (itemName) => {
+    setActiveItem(itemName);
+    setIsMobileMenuOpen(false); // Close mobile menu when item is clicked
+  };
+
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200 mb-[20px] fixed w-full z-10">
       <div className=" mx-5 px-4 sm:px-6 lg:px-8">
@@ -86,19 +93,21 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
+                  const isActive = activeItem === item.name;
                   return (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
+                      onClick={() => handleNavItemClick(item.name)}
                       className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                        item.active
+                        isActive
                           ? "bg-green-100 text-green-700"
                           : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                       }`}
                     >
                       <IconComponent className="h-4 w-4" />
                       <span>{item.name}</span>
-                    </a>
+                    </Link>
                   );
                 })}
               </div>
@@ -107,16 +116,6 @@ const Navbar = () => {
 
           {/* Desktop Right Side */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Search Bar */}
-            {/* <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search credits, projects..."
-                className="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
-              />
-            </div> */}
-
             {/* Notifications */}
             <div className="relative">
               <button
@@ -251,19 +250,21 @@ const Navbar = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigationItems.map((item) => {
                 const IconComponent = item.icon;
+                const isActive = activeItem === item.name;
                 return (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
+                    onClick={() => handleNavItemClick(item.name)}
                     className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium ${
-                      item.active
+                      isActive
                         ? "bg-green-100 text-green-700"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     }`}
                   >
                     <IconComponent className="h-5 w-5" />
                     <span>{item.name}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
