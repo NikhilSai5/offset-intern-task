@@ -7,6 +7,7 @@ import {
   X,
 } from "lucide-react";
 import creditsData from "../data/credits.json";
+import jsPDF from "jspdf";
 
 const CarbonCreditsDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -97,6 +98,37 @@ const CarbonCreditsDashboard = () => {
   // Modal component
   const Modal = () => {
     if (!isModalOpen || !selectedCredit) return null;
+
+    const generatePDF = (credit) => {
+      const doc = new jsPDF();
+
+      // Title
+      doc.setFontSize(18);
+      doc.text("Carbon Credit Certificate", 20, 20);
+
+      // Subtitle
+      doc.setFontSize(12);
+      doc.text("This certifies the following carbon credit details:", 20, 30);
+
+      // Add credit details
+      doc.setFontSize(10);
+      let y = 45;
+      Object.entries(credit).forEach(([key, value]) => {
+        const fieldName = key
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (l) => l.toUpperCase());
+        doc.text(`${fieldName}: ${value}`, 20, y);
+        y += 10;
+      });
+
+      // Signature/Footer
+      doc.setFontSize(12);
+      doc.text("Authorized Signature", 20, y + 20);
+      doc.line(20, y + 22, 80, y + 22); // Signature line
+
+      // Save as file
+      doc.save(`certificate_${credit.unic_id}.pdf`);
+    };
 
     return (
       <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -212,7 +244,10 @@ const CarbonCreditsDashboard = () => {
               >
                 Close
               </button>
-              <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                onClick={() => generatePDF(selectedCredit)}
+              >
                 Download Certificate
               </button>
             </div>
